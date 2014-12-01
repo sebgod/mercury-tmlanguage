@@ -1,0 +1,138 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+# using: http://manual.macromates.com/en/language_grammars
+---
+fileTypes: []
+name: Mercury
+scopeName: source.mercury
+uuid: A3E186F8-CF20-4983-B132-209EDF43E3DE
+repository:
+  default_insts:
+    {match: '\b(in|out|ui|di|uo)\b', name: constant.language.inst.source.mercury}
+
+  line_comment:
+    name: comment.line.percentage.source.mercury
+    begin: (^[ \t]+)?(?=%)
+    beginCaptures:
+      '1': {name: punctuation.whitespace.comment.leading.source.mercury}
+    end: (?!\G)
+    patterns:
+    - begin: '%'
+      beginCaptures:
+        '0': {name: punctuation.definition.comment.source.mercury}
+      end: (?=\n)
+
+  string_quoted_double:
+    name: string.quoted.double.source.mercury
+    begin: '"'
+    beginCaptures:
+      '0': {name: punctuation.literal.string.begin.source.mercury}
+    end: '"'
+    endCaptures:
+      '0': {name: punctuation.literal.string.end.source.mercury}
+    patterns:
+    - {match: \\., name: constant.character.escape.source.mercury}
+    - {match: '""', name: constant.character.escape.quote.source.mercury}
+
+  decl_keywords:
+    {match: '\b(pred|func|is|where)\b', name: keyword.control.declaration.source.mercury}
+  
+  determ_decl:
+    {match: '\b(multi|cc_multi|det|semidet|nondet|errorneous)\b',
+     name: constant.language.determ.source.mercury}
+  
+  type_name:
+    {match: '\b([a-z][_\.a-zA-Z0-9]*)\b', name: support.type.source.mercury}
+
+  logic_consts:
+    {match: '\b(yes|no|true|false)\b', name: constant.language.logic.source.mercury}
+  
+  variable:
+    {match: '\b[A-Z][a-zA-Z0-9_]*\b', name: variable.other.source.mercury}
+  
+patterns:
+- name: string.quoted.double.source.mercury
+  include: '#string_quoted_double'
+- name: string.quoted.single.source.mercury
+  begin: ''''
+  beginCaptures:
+    '0': {name: punctuation.definition.string.begin.source.mercury}
+  end: ''''
+  endCaptures:
+    '0': {name: punctuation.definition.string.end.source.mercury}
+  patterns:
+  - {match: \\., name: constant.character.escape.source.mercury}
+  - {match: '''''', name: constant.character.escape.quote.source.mercury}
+
+- name: comment.block.source.mercury
+  begin: /\*
+  captures:
+    '0': {name: punctuation.definition.comment.source.mercury}
+  end: \*/
+
+- include: '#line_comment'
+    
+- begin: :- (impure)?\s*(pred|func|type|mode|inst|typeclass|instance) ([a-z][_\.a-zA-Z0-9]*)\b
+  beginCaptures:
+    '1': {name: storage.type}
+    '2': {name: keyword.control.declaration.source.mercury}
+    '3': {name: entity.name.function.source.mercury}
+  end: (?=\.[ \t]*(\n|%)) 
+  patterns:
+  - include: '#default_insts'
+  - include: '#decl_keywords'
+  - include: '#determ_decl'
+  - include: '#type_name'
+  - begin: \(
+    end: \)
+    patterns:
+    - include: '#variable'
+    - include: '#default_insts'
+    - include: '#decl_keywords'
+    - include: '#type_name'
+  - begin: \[
+    end: \]
+    patterns:
+    - include: '$self'
+
+- match: ':- (use_module|import_module|end_module|module) ([a-z][_\.a-zA-Z0-9]*)\b'
+  captures:
+      '1': {name: keyword.other.declaration.source.mercury}
+      '2': {name: entity.name.module.source.mercury}
+
+- match: ':- (interface|implementation)\b'
+  captures:
+      '1': {name: keyword.other.declaration.source.mercury}
+
+- begin: :- (pragma) (foreign_[a-z_]+)
+  beginCaptures:
+    '1': {name: keyword.other.pragma.foreign.source.mercury}
+    '2': {name: constant.language.pragma.source.mercury}
+  end: (?=\.[ \t]*(\n|%))
+  patterns:
+    - include: '#decl_keywords'
+    - {match: '^[ \t]*where\b', name: keyword.control.declaration.source.mercury}
+    - begin: \[
+      end: \]
+      patterns:
+      - {match: '(will_not_call_mercury|promise_pure|thread_safe|does_not_affect_liveness|no_sharing|tabled_for_io|can_pass_as_mercury_type)',
+         name: constant.language.proc_type.source.mercury}
+      - include: '#line_comment'
+    - include: '#line_comment'
+    - include: '#variable'
+    - include: '#default_insts'
+    - include: '#type_name'
+    - match: '("C#"|csharp|"C"|c|"Erlang"|erlang|"Java"|java|"IL"|il)[,][ \t]*[(]?([a-z][a-zA-Z0-9_\.]*)'
+      captures:
+         '1': {name: string.quoted.double.source.mercury}
+         '2': {name: entity.name.function.source.mercury}
+    - match: '^[ \t]*[(]?([a-z][a-zA-Z0-9_\.]*)\b'
+      captures:
+        '1': {name: entity.name.function.source.mercury}
+    - include: '#string_quoted_double'
+    
+- include: '#decl_keywords'
+- {match: '^[a-z][a-zA-Z0-9_\.]*\b', name: entity.name.function.source.mercury}
+- include: '#logic_consts'
+- include: '#variable'
+- {match: '\b[a-z][a-zA-Z0-9_]*\b', name: constant.other.symbol.source.mercury}
+- {match: '[$][a-zA-Z0-9_]*\b', name: variable.language.source.mercury}
