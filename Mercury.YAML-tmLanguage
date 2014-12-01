@@ -1,7 +1,7 @@
 # [PackageDev] target_format: plist, ext: tmLanguage
 # using: http://manual.macromates.com/en/language_grammars
 ---
-fileTypes: []
+fileTypes: [m,moo]
 name: Mercury
 scopeName: source.mercury
 uuid: A3E186F8-CF20-4983-B132-209EDF43E3DE

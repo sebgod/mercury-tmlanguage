@@ -4,6 +4,8 @@
 <dict>
 	<key>fileTypes</key>
 	<array>
+		<string>m</string>
+		<string>moo</string>
 	</array>
 	<key>name</key>
 	<string>Mercury</string>
