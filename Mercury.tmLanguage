@@ -66,7 +66,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(:-) (impure)?\s*(pred|func|type|mode|inst|typeclass|instance) ([a-z][_\.a-zA-Z0-9]*)\b</string>
+			<string>(:-) (impure)?\s*(pred|func|mode|typeclass|instance) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)\b</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -91,7 +91,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\.[ \t]*(\n|%))</string>
+			<string>(?=\.[ \t]*(\n|%)?)</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -137,7 +137,137 @@
 			</array>
 		</dict>
 		<dict>
-			<key>captures</key>
+			<key>begin</key>
+			<string>(:-) (type) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.operator.source.mercury</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.declaration.source.mercury</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.source.mercury</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>==</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.operator.source.mercury</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.type.source.mercury</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#common_ops</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#const_def</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#atom</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#type_params</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#block_comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#line_comment</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(:-) (inst) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.operator.source.mercury</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.declaration.source.mercury</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.source.mercury</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#common_ops</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#const_inst</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#poly_insts</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#default_insts</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#type_params</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#block_comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#line_comment</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(:-) (use_module|import_module|end_module|module)\b</string>
+			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
 				<dict>
@@ -149,14 +279,16 @@
 					<key>name</key>
 					<string>keyword.other.declaration.source.mercury</string>
 				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.module.source.mercury</string>
-				</dict>
 			</dict>
-			<key>match</key>
-			<string>(:-) (use_module|import_module|end_module|module) ([a-z][_\.a-zA-Z0-9]*)\b</string>
+			<key>end</key>
+			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#type_name</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -197,116 +329,62 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\.[ \t]*(\n|%))</string>
+			<string>(?=\.[ \t]*(\n|%)?)</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
-					<string>#decl_keywords</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>^[ \t]*where\b</string>
-					<key>name</key>
-					<string>keyword.control.declaration.source.mercury</string>
-				</dict>
-				<dict>
 					<key>begin</key>
-					<string>\[</string>
+					<string>(\()("C#"|csharp|"C"|c|"Erlang"|erlang|"Java"|java|"IL"|il)</string>
 					<key>beginCaptures</key>
 					<dict>
-						<key>0</key>
+						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>keyword.control.list.begin.source.mercury</string>
+							<string>keyword.control.parens.begin.source.mercury</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>string.quoted.double.source.mercury</string>
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>\]</string>
+					<string>\)</string>
 					<key>endCaptures</key>
 					<dict>
 						<key>0</key>
 						<dict>
 							<key>name</key>
-							<string>keyword.control.list.end.source.mercury</string>
+							<string>keyword.control.parens.end.source.mercury</string>
 						</dict>
 					</dict>
 					<key>patterns</key>
 					<array>
 						<dict>
-							<key>match</key>
-							<string>\b(will_not_modify_trail|will_not_call_mercury|promise_pure|thread_safe|does_not_affect_liveness|no_sharing|tabled_for_io|can_pass_as_mercury_type|may_not_duplicate)\b</string>
-							<key>name</key>
-							<string>constant.language.proc_type.source.mercury,</string>
+							<key>include</key>
+							<string>#function_name</string>
 						</dict>
 						<dict>
 							<key>include</key>
-							<string>#common_ops</string>
+							<string>#decl_params</string>
 						</dict>
 						<dict>
 							<key>include</key>
-							<string>#block_comment</string>
+							<string>#decl_spec</string>
 						</dict>
 						<dict>
 							<key>include</key>
-							<string>#line_comment</string>
+							<string>#string_quoted_double</string>
 						</dict>
 					</array>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#variable</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#default_insts</string>
+					<string>#decl_keywords</string>
 				</dict>
 				<dict>
 					<key>include</key>
 					<string>#type_name</string>
-				</dict>
-				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>string.quoted.double.source.mercury</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>keyword.control.parens.begin.source.mercury</string>
-						</dict>
-						<key>3</key>
-						<dict>
-							<key>name</key>
-							<string>entity.name.function.source.mercury</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>("C#"|csharp|"C"|c|"Erlang"|erlang|"Java"|java|"IL"|il)[,][ \t]*([(]?)([a-z][a-zA-Z0-9_\.]*)</string>
-				</dict>
-				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>keyword.control.parens.begin.source.mercury</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>entity.name.function.source.mercury</string>
-						</dict>
-					</dict>
-					<key>match</key>
-					<string>^[ \t]*(\()?([a-z][a-zA-Z0-9_\.]*)\b</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#string_quoted_double</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -320,13 +398,11 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#decl_keywords</string>
+			<string>#function_def_name</string>
 		</dict>
 		<dict>
-			<key>match</key>
-			<string>^[a-z][a-zA-Z0-9_\.]*\b</string>
-			<key>name</key>
-			<string>entity.name.function.source.mercury</string>
+			<key>include</key>
+			<string>#decl_keywords</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -401,6 +477,116 @@
 			<string>(-(?![&gt;-])|&lt;=&gt;|&lt;=|=&lt;|&gt;=|=&gt;|-&gt;|--&gt;|---&gt;|[+](?![+])|[+][+](?![+])|[*](?![*])|[*][*](?![*])|,|;|/|//|=(?![=&lt;&gt;])|==|::|![\.:]?|:-|`)</string>
 			<key>name</key>
 			<string>keyword.operator.source.mercury</string>
+		</dict>
+		<key>const_def</key>
+		<dict>
+			<key>begin</key>
+			<string>\b([a-z][_\.a-zA-Z0-9]*)(\()</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>constant.other.symbol.source.mercury</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.parens.begin.source.mercury</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.parens.end.source.mercury</string>
+				</dict>
+			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#poly_type_name</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#type_name</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#common_ops</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#line_comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#block_comment</string>
+				</dict>
+			</array>
+		</dict>
+		<key>const_inst</key>
+		<dict>
+			<key>begin</key>
+			<string>\b([a-z][_\.a-zA-Z0-9]*)(\()</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>constant.other.symbol.source.mercury</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.parens.begin.source.mercury</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.parens.end.source.mercury</string>
+				</dict>
+			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#poly_insts</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#default_insts</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#common_ops</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#line_comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#block_comment</string>
+				</dict>
+			</array>
 		</dict>
 		<key>decl_keywords</key>
 		<dict>
@@ -547,6 +733,20 @@
 			<key>name</key>
 			<string>constant.language.determ.source.mercury</string>
 		</dict>
+		<key>function_def_name</key>
+		<dict>
+			<key>match</key>
+			<string>^[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b</string>
+			<key>name</key>
+			<string>entity.name.function.source.mercury</string>
+		</dict>
+		<key>function_name</key>
+		<dict>
+			<key>match</key>
+			<string>[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b</string>
+			<key>name</key>
+			<string>entity.name.function.source.mercury</string>
+		</dict>
 		<key>higher_order_insts</key>
 		<dict>
 			<key>begin</key>
@@ -599,6 +799,18 @@
 				<dict>
 					<key>include</key>
 					<string>#type_name</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#common_ops</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#line_comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#block_comment</string>
 				</dict>
 			</array>
 		</dict>
@@ -776,12 +988,24 @@
 					<key>include</key>
 					<string>#atom</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#common_ops</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#line_comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#block_comment</string>
+				</dict>
 			</array>
 		</dict>
 		<key>poly_type_name</key>
 		<dict>
 			<key>begin</key>
-			<string>\b([a-z][_\.a-zA-Z0-9]*)\(</string>
+			<string>\b([a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9]*)*)(\()</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -789,7 +1013,7 @@
 					<key>name</key>
 					<string>support.type.poly.source.mercury</string>
 				</dict>
-				<key>2</key>
+				<key>4</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.control.parens.begin.source.mercury</string>
@@ -864,9 +1088,51 @@
 		<key>type_name</key>
 		<dict>
 			<key>match</key>
-			<string>\b([a-z][_\.a-zA-Z0-9]*)\b</string>
+			<string>\b[a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9]*)*\b</string>
 			<key>name</key>
 			<string>support.type.source.mercury</string>
+		</dict>
+		<key>type_params</key>
+		<dict>
+			<key>begin</key>
+			<string>\(</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.parens.begin.source.mercury</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.parens.end.source.mercury</string>
+				</dict>
+			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#common_ops</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#line_comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#block_comment</string>
+				</dict>
+			</array>
 		</dict>
 		<key>variable</key>
 		<dict>
