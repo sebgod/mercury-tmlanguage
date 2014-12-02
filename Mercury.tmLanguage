@@ -374,6 +374,10 @@
 						</dict>
 						<dict>
 							<key>include</key>
+							<string>#common_ops</string>
+						</dict>
+						<dict>
+							<key>include</key>
 							<string>#string_quoted_double</string>
 						</dict>
 					</array>

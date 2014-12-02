@@ -337,6 +337,7 @@ patterns:
       - include: '#function_name'
       - include: '#decl_params'
       - include: '#decl_spec'
+      - include: '#common_ops'
       - include: '#string_quoted_double'
       endCaptures:
         '0': {name: keyword.control.parens.end.source.mercury}
