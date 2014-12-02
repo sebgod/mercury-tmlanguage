@@ -90,11 +90,16 @@ repository:
     end: \*/
   
   line_comment:
-    begin: (^[ \t]+)?(%([-]+%)?)(.*)
+    begin: (^[ \t]+)?(%([-]+%)?)
     beginCaptures:
       '1': {name: punctuation.whitespace.comment.leading.source.mercury}
       '2': {name: comment.line.percentage.source.mercury}
     end: (?!\G)
+    patterns:
+    - match: '[ \t]+((XXX|TODO|FIXME|WARNING|NOTE)\b|(Note:))'
+      captures:
+        '1': {name: invalid.xxx.source.mercury}
+    - match: '.*'
 
   string_quoted_double:
     name: string.quoted.double.source.mercury

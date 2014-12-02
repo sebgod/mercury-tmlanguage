@@ -824,7 +824,7 @@
 		<key>line_comment</key>
 		<dict>
 			<key>begin</key>
-			<string>(^[ \t]+)?(%([-]+%)?)(.*)</string>
+			<string>(^[ \t]+)?(%([-]+%)?)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -840,6 +840,25 @@
 			</dict>
 			<key>end</key>
 			<string>(?!\G)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>invalid.xxx.source.mercury</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>[ \t]+((XXX|TODO|FIXME|WARNING|NOTE)\b|(Note:))</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>.*</string>
+				</dict>
+			</array>
 		</dict>
 		<key>list_block</key>
 		<dict>
