@@ -156,14 +156,11 @@ repository:
     {match: '\b(multi|cc_multi|det|semidet|nondet|errorneous)\b',
      name: constant.language.determ.source.mercury}
   
-  function_name:
-    {match: '[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b', name: entity.name.function.source.mercury}
-
   function_def_name:
-    {match: '^[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b', name: entity.name.function.source.mercury}
+    {match: '^[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b', name: support.type.source.mercury}
 
   type_name:
-    {match: '\b[a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9]*)*\b', name: support.type.source.mercury}
+    {match: '\b[a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9_]*)*\b', name: support.type.source.mercury}
 
   type_params:
     begin: \(
@@ -179,7 +176,7 @@ repository:
       - include: '#block_comment'
 
   poly_type_name:
-    begin: \b([a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9]*)*)(\()
+    begin: \b([a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9_]*)*)(\()
     beginCaptures:
       '1': {name: support.type.poly.source.mercury}
       '4': {name: keyword.control.parens.begin.source.mercury}
@@ -220,6 +217,10 @@ repository:
   logic_consts:
     {match: '\b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail)\b', name: constant.language.logic.source.mercury}
   
+  purity_level:
+    match: (im|semi)pure
+    name: storage.type
+
   variable:
     {match: '\b[A-Z][a-zA-Z0-9_]*\b', name: variable.other.source.mercury}
 
@@ -227,7 +228,7 @@ repository:
     {match: '[$][a-zA-Z0-9_]*\b', name: variable.language.source.mercury}
 
   common_ops:
-    match: (-(?![>-])|<=>|<=|=<|>=|=>|->|-->|--->|[+](?![+])|[+][+](?![+])|[*](?![*])|[*][*](?![*])|,|;|/|//|=(?![=<>])|==|::|![\.:]?|:-|`)
+    match: (-(?![>-])|<=>|<=|=<|>=|=>|->|-->|--->|[+](?![+])|[+][+](?![+])|[*](?![*])|[*][*](?![*])|,|;|/|//|\\=|=(?![=<>])|==|::|![\.:]?|:-|`)
     name: keyword.operator.source.mercury
 
   number:
@@ -252,12 +253,11 @@ patterns:
 - include: '#block_comment'
 - include: '#line_comment'
     
-- begin: (:-) (impure)?\s*(pred|func|mode|typeclass|instance) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)\b
+- begin: (:-) (impure)?\s*(pred|func|mode|typeclass|instance)\b
   beginCaptures:
     '1': {name: keyword.operator.source.mercury}
     '2': {name: storage.type}
     '3': {name: keyword.control.declaration.source.mercury}
-    '4': {name: entity.name.function.source.mercury}
   end: (?=\.[ \t]*(\n|%)?) 
   patterns:
   - include: '#decl_spec'
@@ -268,14 +268,14 @@ patterns:
   - include: '#higher_order_insts'
   - include: '#default_insts' 
   - include: '#poly_type_name'
-  - include: '#atom'
   - include: '#type_name'
+  - include: '#atom'
 
 - begin: (:-) (type) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)
   beginCaptures:
     '1': {name: keyword.operator.source.mercury}
     '2': {name: keyword.control.declaration.source.mercury}
-    '3': {name: entity.name.function.source.mercury}
+    '3': {name: support.type.source.mercury}
   end: (?=\.[ \t]*(\n|%)?)
   patterns:
   # matching type alias
@@ -296,7 +296,7 @@ patterns:
   beginCaptures:
     '1': {name: keyword.operator.source.mercury}
     '2': {name: keyword.control.declaration.source.mercury}
-    '3': {name: entity.name.function.source.mercury}
+    '3': {name: support.type.source.mercury}
   end: (?=\.[ \t]*(\n|%)?)
   patterns:
   - include: '#common_ops'
@@ -334,7 +334,7 @@ patterns:
          '2': {name: string.quoted.double.source.mercury}
       end: \)
       patterns:
-      - include: '#function_name'
+      - include: '#type_name'
       - include: '#decl_params'
       - include: '#decl_spec'
       - include: '#common_ops'
@@ -348,6 +348,7 @@ patterns:
     
 - include: '#function_def_name'
 - include: '#decl_keywords'
+- include: '#purity_level'
 - include: '#logic_consts'
 - include: '#variable'
 - include: '#impl_defined_variable'

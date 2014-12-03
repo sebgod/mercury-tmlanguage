@@ -66,7 +66,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(:-) (impure)?\s*(pred|func|mode|typeclass|instance) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)\b</string>
+			<string>(:-) (impure)?\s*(pred|func|mode|typeclass|instance)\b</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -83,11 +83,6 @@
 				<dict>
 					<key>name</key>
 					<string>keyword.control.declaration.source.mercury</string>
-				</dict>
-				<key>4</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.function.source.mercury</string>
 				</dict>
 			</dict>
 			<key>end</key>
@@ -128,11 +123,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#atom</string>
+					<string>#type_name</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#type_name</string>
+					<string>#atom</string>
 				</dict>
 			</array>
 		</dict>
@@ -154,7 +149,7 @@
 				<key>3</key>
 				<dict>
 					<key>name</key>
-					<string>entity.name.function.source.mercury</string>
+					<string>support.type.source.mercury</string>
 				</dict>
 			</dict>
 			<key>end</key>
@@ -227,7 +222,7 @@
 				<key>3</key>
 				<dict>
 					<key>name</key>
-					<string>entity.name.function.source.mercury</string>
+					<string>support.type.source.mercury</string>
 				</dict>
 			</dict>
 			<key>end</key>
@@ -362,7 +357,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>#function_name</string>
+							<string>#type_name</string>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -407,6 +402,10 @@
 		<dict>
 			<key>include</key>
 			<string>#decl_keywords</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#purity_level</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -478,7 +477,7 @@
 		<key>common_ops</key>
 		<dict>
 			<key>match</key>
-			<string>(-(?![&gt;-])|&lt;=&gt;|&lt;=|=&lt;|&gt;=|=&gt;|-&gt;|--&gt;|---&gt;|[+](?![+])|[+][+](?![+])|[*](?![*])|[*][*](?![*])|,|;|/|//|=(?![=&lt;&gt;])|==|::|![\.:]?|:-|`)</string>
+			<string>(-(?![&gt;-])|&lt;=&gt;|&lt;=|=&lt;|&gt;=|=&gt;|-&gt;|--&gt;|---&gt;|[+](?![+])|[+][+](?![+])|[*](?![*])|[*][*](?![*])|,|;|/|//|\\=|=(?![=&lt;&gt;])|==|::|![\.:]?|:-|`)</string>
 			<key>name</key>
 			<string>keyword.operator.source.mercury</string>
 		</dict>
@@ -742,14 +741,7 @@
 			<key>match</key>
 			<string>^[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b</string>
 			<key>name</key>
-			<string>entity.name.function.source.mercury</string>
-		</dict>
-		<key>function_name</key>
-		<dict>
-			<key>match</key>
-			<string>[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b</string>
-			<key>name</key>
-			<string>entity.name.function.source.mercury</string>
+			<string>support.type.source.mercury</string>
 		</dict>
 		<key>higher_order_insts</key>
 		<dict>
@@ -1028,7 +1020,7 @@
 		<key>poly_type_name</key>
 		<dict>
 			<key>begin</key>
-			<string>\b([a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9]*)*)(\()</string>
+			<string>\b([a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9_]*)*)(\()</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -1067,6 +1059,13 @@
 					<string>#type_name</string>
 				</dict>
 			</array>
+		</dict>
+		<key>purity_level</key>
+		<dict>
+			<key>match</key>
+			<string>(im|semi)pure</string>
+			<key>name</key>
+			<string>storage.type</string>
 		</dict>
 		<key>string_quoted_double</key>
 		<dict>
@@ -1111,7 +1110,7 @@
 		<key>type_name</key>
 		<dict>
 			<key>match</key>
-			<string>\b[a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9]*)*\b</string>
+			<string>\b[a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9_]*)*\b</string>
 			<key>name</key>
 			<string>support.type.source.mercury</string>
 		</dict>
