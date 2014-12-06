@@ -86,7 +86,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<string>(?=\.[ \t]*($|%))</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -153,7 +153,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<string>(?=\.[ \t]*($|%))</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -226,7 +226,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<string>(?=\.[ \t]*($|%))</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -276,7 +276,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<string>(?=\.[ \t]*($|%))</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -324,7 +324,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\.[ \t]*(\n|%)?)</string>
+			<string>(?=\.[ \t]*($|%))</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -886,14 +886,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#block_comment</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#line_comment</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>$self</string>
 				</dict>
 			</array>
@@ -925,14 +917,6 @@
 				<dict>
 					<key>include</key>
 					<string>#string_quoted_double</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#block_comment</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#line_comment</string>
 				</dict>
 				<dict>
 					<key>include</key>
