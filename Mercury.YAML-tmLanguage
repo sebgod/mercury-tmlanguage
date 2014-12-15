@@ -90,6 +90,7 @@ repository:
     end: \*/
   
   line_comment:
+    name: comment.comment.source.mercury
     begin: (^[ \t]+)?(%([-]+%)?)
     beginCaptures:
       '1': {name: punctuation.whitespace.comment.leading.source.mercury}

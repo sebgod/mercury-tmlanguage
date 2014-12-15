@@ -859,6 +859,8 @@
 			</dict>
 			<key>end</key>
 			<string>(?!\G)</string>
+			<key>name</key>
+			<string>comment.comment.source.mercury</string>
 			<key>patterns</key>
 			<array>
 				<dict>
