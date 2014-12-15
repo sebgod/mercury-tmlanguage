@@ -218,14 +218,22 @@ repository:
     name: storage.type
 
   variable:
-    {match: '\b[A-Z][a-zA-Z0-9_]*\b', name: variable.other.source.mercury}
+    patterns:
+    - {match: '\b[A-Z][a-zA-Z0-9_]*\b', name: variable.other.source.mercury}
 
-  impl_defined_vairable:
+  impl_defined_variable:
     {match: '[$][a-zA-Z0-9_]*\b', name: variable.language.source.mercury}
 
   common_ops:
-    match: (-(?![>-])|<=>|<=|=<|>=|=>|->|-->|--->|<(?![=])|(?![-])>|[+](?![+])|[+][+](?![+])|[*](?![*])|[*][*](?![*])|,|;|/(?![\\/])|/\\(?![=])|//|\\/|\\=|=(?![=<>])|==|::|:=|![\.:]?|:-|\||`|\^)
-    name: keyword.operator.source.mercury
+    patterns:
+    - match: (-(?![>-])|[+](?![+])|[*][*]?|/(?![\\/])|//|\\(?![/=]))
+      name: keyword.operator.arithmetic.source.mercury
+    - match: (=<|>=|<(?![=])|(?![-])>)
+      name: keyword.operator.comparison.source.mercury
+    - match: (<=>|<=|=>|\\=|==|:-|=(?![=<>])|,|;|->|/\\(?![=])|\\/|@)
+      name: keyword.operator.logic.source.mercury
+    - match: (-->|--->|[+][+](?![+])|::|:=|![\.:]?|\||`|\^)
+      name: keyword.operator.source.mercury
 
   number:
     match: \b(0[0-7]*|0'.|[1-9][0-9]*|\.[0-9]+([eE][0-9]+)?|0[xX][0-9a-fA-F]+|0[bB][01]+)\b

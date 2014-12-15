@@ -476,10 +476,33 @@
 		</dict>
 		<key>common_ops</key>
 		<dict>
-			<key>match</key>
-			<string>(-(?![&gt;-])|&lt;=&gt;|&lt;=|=&lt;|&gt;=|=&gt;|-&gt;|--&gt;|---&gt;|&lt;(?![=])|(?![-])&gt;|[+](?![+])|[+][+](?![+])|[*](?![*])|[*][*](?![*])|,|;|/(?![\\/])|/\\(?![=])|//|\\/|\\=|=(?![=&lt;&gt;])|==|::|:=|![\.:]?|:-|\||`|\^)</string>
-			<key>name</key>
-			<string>keyword.operator.source.mercury</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(-(?![&gt;-])|[+](?![+])|[*][*]?|/(?![\\/])|//|\\(?![/=]))</string>
+					<key>name</key>
+					<string>keyword.operator.arithmetic.source.mercury</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(=&lt;|&gt;=|&lt;(?![=])|(?![-])&gt;)</string>
+					<key>name</key>
+					<string>keyword.operator.comparison.source.mercury</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(&lt;=&gt;|&lt;=|=&gt;|\\=|==|:-|=(?![=&lt;&gt;])|,|;|-&gt;|/\\(?![=])|\\/|@)</string>
+					<key>name</key>
+					<string>keyword.operator.logic.source.mercury</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(--&gt;|---&gt;|[+][+](?![+])|::|:=|![\.:]?|\||`|\^)</string>
+					<key>name</key>
+					<string>keyword.operator.source.mercury</string>
+				</dict>
+			</array>
 		</dict>
 		<key>const_def</key>
 		<dict>
@@ -810,7 +833,7 @@
 				</dict>
 			</array>
 		</dict>
-		<key>impl_defined_vairable</key>
+		<key>impl_defined_variable</key>
 		<dict>
 			<key>match</key>
 			<string>[$][a-zA-Z0-9_]*\b</string>
@@ -1142,10 +1165,15 @@
 		</dict>
 		<key>variable</key>
 		<dict>
-			<key>match</key>
-			<string>\b[A-Z][a-zA-Z0-9_]*\b</string>
-			<key>name</key>
-			<string>variable.other.source.mercury</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\b[A-Z][a-zA-Z0-9_]*\b</string>
+					<key>name</key>
+					<string>variable.other.source.mercury</string>
+				</dict>
+			</array>
 		</dict>
 	</dict>
 	<key>scopeName</key>
