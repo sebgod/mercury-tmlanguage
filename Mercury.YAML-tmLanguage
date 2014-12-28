@@ -7,81 +7,6 @@ name: Mercury
 scopeName: source.mercury
 uuid: A3E186F8-CF20-4983-B132-209EDF43E3DE
 repository:
-  atom:
-    {match: '\b[a-z][a-zA-Z0-9_]*\b', name: constant.other.symbol.source.mercury}
-
-  const_def:
-    begin: \b([a-z][_\.a-zA-Z0-9]*)(\()
-    beginCaptures:
-      '1': {name: constant.other.symbol.source.mercury}
-      '2': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-    - include: '#poly_type_name'
-    - include: '#variable'
-    - include: '#type_name'
-    - include: '#common_ops'
-    - include: '#line_comment'
-    - include: '#block_comment'
-
-  default_insts:
-    {match: '\b(in|out|ui|di|uo|free|unique|ground)\b', name: constant.language.inst.source.mercury}
-
-  poly_insts:
-    begin: \b(in|out|ui|uo|di|unique)(\()
-    beginCaptures:
-      '1': {name: constant.language.inst.source.mercury}
-      '2': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-    - include: '#higher_order_insts'
-    - include: '#default_insts'
-    - include: '#decl_keywords'
-    - include: '#determ_decl'
-    - include: '#atom'
-    - include: '#common_ops'
-    - include: '#line_comment'
-    - include: '#block_comment'
-
-  const_inst:
-    begin: \b([a-z][_\.a-zA-Z0-9]*)(\()
-    beginCaptures:
-      '1': {name: constant.other.symbol.source.mercury}
-      '2': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-    - include: '#poly_insts'
-    - include: '#variable'
-    - include: '#default_insts'
-    - include: '#common_ops'
-    - include: '#line_comment'
-    - include: '#block_comment'
-
-  higher_order_insts:
-    begin: \b(pred|func)(\()
-    beginCaptures:
-      '1': {name: constant.language.inst.source.mercury}
-      '2': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-    - include: '#poly_insts'
-    - include: '#default_insts'
-    - include: '#variable'
-    - include: '#poly_type_name'
-    - include: '#higher_order_insts'
-    - include: '#type_name' # XXX stricly distinguish inst <-> type
-    - include: '#common_ops'
-    - include: '#line_comment'
-    - include: '#block_comment'
-
   block_comment:
     name: comment.block.source.mercury
     begin: /\*
@@ -97,9 +22,9 @@ repository:
       '2': {name: comment.line.percentage.source.mercury}
     end: (?!\G)
     patterns:
-    - match: '[ \t]+((XXX|TODO|FIXME|WARNING|NOTE)\b|(Note:))'
+    - match: '[ \t]+(XXX|TODO|FIXME|WARNING|NOTE|Note:)\b'
       captures:
-        '1': {name: invalid.xxx.source.mercury}
+        '1': {name: constant.language.warn.source.mercury}
     - match: '.*'
 
   string_quoted_double:
@@ -117,114 +42,33 @@ repository:
   decl_keywords:
     {match: '\b(is|where)\b', name: keyword.control.declaration.source.mercury}
 
-  decl_spec:
-    begin: \[
-    beginCaptures:
-      '0': {name: keyword.control.list.begin.source.mercury}
-    end: \]
-    endCaptures:
-      '0': {name: keyword.control.list.end.source.mercury}
-    patterns:
-    - include: '#higher_order_insts'
-    - include: '#decl_keywords'
-    - include: '#type_name'
-    - include: '#logic_block'
-    - include: '#common_ops'
-    - include: '#block_comment'
-    - include: '#line_comment'
-
-  decl_params:
-    begin: \(
-    beginCaptures:
-      '0': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-    - include: '#decl_keywords'
-    - include: '#determ_decl'
-    - include: '#poly_insts'
-    - include: '#higher_order_insts'
-    - include: '#poly_type_name'
-    - include: '#default_insts'
-    - include: '#type_name'
-    - include: '#variable'
-    - include: '#common_ops'
-    - include: '#block_comment'
-    - include: '#line_comment'
-  
   determ_decl:
     {match: '\b(multi|cc_multi|det|semidet|nondet|errorneous)\b',
      name: constant.language.determ.source.mercury}
-  
-  function_def_name:
-    {match: '^[a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*\b', name: support.type.source.mercury}
-
-  type_name:
-    {match: '\b[a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9_]*)*\b', name: support.type.source.mercury}
-
-  type_params:
-    begin: \(
-    beginCaptures:
-      '0': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-      - include: '#variable'
-      - include: '#common_ops'
-      - include: '#line_comment'
-      - include: '#block_comment'
-
-  poly_type_name:
-    begin: \b([a-z][a-zA-Z0-9_]+((__|\.)[a-z][a-zA-Z0-9_]*)*)(\()
-    beginCaptures:
-      '1': {name: support.type.poly.source.mercury}
-      '4': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-    - include: '#poly_type_name'
-    - include: '#variable'
-    - include: '#type_name'
-
-  logic_block:
-    begin: (?=\W)(\()
-    beginCaptures:
-      '1': {name: keyword.control.parens.begin.source.mercury}
-    end: \)
-    endCaptures:
-      '0': {name: keyword.control.parens.end.source.mercury}
-    patterns:
-    - include: '#string_quoted_double'
-    - include: $self
-
-  list_block:
-    begin: \[
-    beginCaptures:
-      '0': {name: keyword.control.list.begin.source.mercury}
-    end: \]
-    endCaptures:
-      '0': {name: keyword.control.list.end.source.mercury}
-    patterns:
-    - include: '#string_quoted_double'
-    - include: $self
-  
+    
   logic_consts:
-    {match: '\b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail)\b', name: constant.language.logic.source.mercury}
+    {match: '\b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail)\b',
+     name: constant.language.logic.source.mercury}
   
   purity_level:
     match: (im|semi)pure
     name: storage.type
 
-  variable:
-    patterns:
-    - {match: '\b[A-Z][a-zA-Z0-9_]*\b', name: variable.other.source.mercury}
-
   impl_defined_variable:
     {match: '[$][a-zA-Z0-9_]*\b', name: variable.language.source.mercury}
 
+  declarations:
+    patterns:
+    - match: (^[ \t]*:-) ((use|include|end|import|)_module|module|func|pred|type(class)?|inst(ance)?|mode|interface|implementation)\b
+      captures:
+        '1': {name: keyword.operator.logic.source.mercury}
+      name: keyword.control.declaration.source.mercury
+    - match: (^[ \t]*:-) (pragma) (inline|foreign_(export(_enum)?|enum)|type_spec)\b
+      captures:
+        '1': {name: keyword.operator.logic.source.mercury}
+        '2': {name: keyword.control.pragma.source.mercury}
+      name: constant.language.pragma.source.mercury
+    
   common_ops:
     patterns:
     - match: (-(?![>-])|[+](?![+])|[*][*]?|/(?![\\/])|//|\\(?![/=]))
@@ -234,7 +78,11 @@ repository:
     - match: (<=>|<=|=>|\\=|==|:-|=(?![=<>])|,|;|->|/\\(?![=])|\\/|@)
       name: keyword.operator.logic.source.mercury
     - match: (-->|--->|[+][+](?![+])|::|:=|![\.:]?|\||`|\^)
-      name: keyword.operator.source.mercury
+      name: keyword.operator.other.source.mercury
+    - match: (\(|\)|\[|\])
+      name: keyword.operator.list.source.mercury
+    - match: \.(?=[ \t]*($|%))
+      name: keyword.operator.terminator.source.mercury
 
   number:
     match: \b(0[0-7]*|0'.|[1-9][0-9]*|\.[0-9]+([eE][0-9]+)?|0[xX][0-9a-fA-F]+|0[bB][01]+)\b
@@ -257,110 +105,10 @@ patterns:
 
 - include: '#block_comment'
 - include: '#line_comment'
-    
-- begin: (:-) (impure)?\s*(pred|func|mode|typeclass|instance)\b
-  beginCaptures:
-    '1': {name: keyword.operator.source.mercury}
-    '2': {name: storage.type}
-    '3': {name: keyword.control.declaration.source.mercury}
-  end: (?=\.[ \t]*($|%)) 
-  patterns:
-  - include: '#decl_spec'
-  - include: '#decl_params'
-  - include: '#decl_keywords'
-  - include: '#determ_decl'
-  - include: '#common_ops'
-  - include: '#higher_order_insts'
-  - include: '#default_insts' 
-  - include: '#poly_type_name'
-  - include: '#type_name'
-  - include: '#atom'
-
-- begin: (:-) (type) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)
-  beginCaptures:
-    '1': {name: keyword.operator.source.mercury}
-    '2': {name: keyword.control.declaration.source.mercury}
-    '3': {name: support.type.source.mercury}
-  end: (?=\.[ \t]*($|%))
-  patterns:
-  # matching type alias
-  - begin: ==
-    beginCaptures:
-      '0': {name: keyword.operator.source.mercury}
-    end: ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)
-    endCaptures:
-      '1': {name: support.type.source.mercury}
-  - include: '#common_ops'
-  - include: '#const_def'
-  - include: '#atom'
-  - include: '#type_params'
-  - include: '#block_comment'
-  - include: '#line_comment'
-
-- begin: (:-) (inst) ([a-z][a-zA-Z0-9_]*((__|\.)[a-z][a-zA-Z0-9_]*)*)
-  beginCaptures:
-    '1': {name: keyword.operator.source.mercury}
-    '2': {name: keyword.control.declaration.source.mercury}
-    '3': {name: support.type.source.mercury}
-  end: (?=\.[ \t]*($|%))
-  patterns:
-  - include: '#common_ops'
-  - include: '#const_inst'
-  - include: '#poly_insts'
-  - include: '#default_insts'
-  - include: '#type_params'
-  - include: '#block_comment'
-  - include: '#line_comment'
-
-
-- begin: (:-) (use_module|import_module|end_module|module)\b
-  beginCaptures:
-      '1': {name: keyword.operator.source.mercury}
-      '2': {name: keyword.other.declaration.source.mercury}
-  end: (?=\.[ \t]*($|%))
-  patterns:
-  - include: '#type_name'
-
-- match: '(:-) (interface|implementation)\b'
-  captures:
-      '1': {name: keyword.operator.source.mercury}
-      '2': {name: keyword.other.declaration.source.mercury}
-
-- begin: (:-) (pragma) (foreign_[a-z_]+)
-  beginCaptures:
-    '1': {name: keyword.operator.source.mercury}
-    '2': {name: keyword.other.pragma.foreign.source.mercury}
-    '3': {name: constant.language.pragma.source.mercury}
-  end: (?=\.[ \t]*($|%))
-  patterns:
-    - begin: (\()("C#"|csharp|"C"|c|"Erlang"|erlang|"Java"|java|"IL"|il)
-      beginCaptures:
-         '1': {name: keyword.control.parens.begin.source.mercury}
-         '2': {name: string.quoted.double.source.mercury}
-      end: \)
-      patterns:
-      - include: '#type_name'
-      - include: '#decl_params'
-      - include: '#decl_spec'
-      - include: '#common_ops'
-      - include: '#string_quoted_double'
-      endCaptures:
-        '0': {name: keyword.control.parens.end.source.mercury}
-    - include: '#decl_keywords'
-    - include: '#type_name'
-    - include: '#block_comment'
-    - include: '#line_comment'
-    
-- include: '#function_def_name'
 - include: '#decl_keywords'
 - include: '#purity_level'
-- include: '#logic_consts'
-- include: '#variable'
 - include: '#impl_defined_variable'
 - include: '#number'
+- include: '#declarations'
+# declarations come before common_ops, since declarations relies on :-
 - include: '#common_ops'
-- include: '#atom'
-- include: '#higher_order_insts'
-- include: '#poly_type_name'
-- include: '#list_block'
-- include: '#logic_block'
