@@ -1,7 +1,7 @@
 mercury-tmlanguage
 ==================
 
-A Atom/Textmate/Sublime 2 grammar for the Mercury language, using the [MIT License](LICENSE).
+A Atom|Textmate|Sublime 2|GitHub grammar for the Mercury language, using the [MIT License](LICENSE).
 
 ## Demonstration
 
