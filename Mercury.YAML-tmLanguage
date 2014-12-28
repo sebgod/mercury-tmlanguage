@@ -41,19 +41,33 @@ repository:
     - {match: '""', name: constant.character.escape.quote.source.mercury}
 
   decl_keywords:
-    {match: '\b(is|where)\b', name: keyword.control.declaration.source.mercury}
+    match: \b(is|where)\b
+    name: keyword.control.declaration.source.mercury
 
   determ_decl:
-    {match: '\b(multi|cc_multi|det|semidet|nondet|errorneous)\b',
-     name: constant.language.determ.source.mercury}
+    match: \b(multi|cc_multi|det|semidet|nondet|errorneous|failure)\b
+    name: constant.language.determ.source.mercury
     
   logic_consts:
-    {match: '\b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail)\b',
-     name: constant.language.logic.source.mercury}
+    match: \b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail)\b
+    name: constant.language.logic.source.mercury
   
   purity_level:
     match: \b((promise_)(semi)?pure|(im|semi)?pure)\b
-    name: storage.type
+    name: storage.type.source.mercury
+
+  foreign_mods:
+    match: (?x)\b(affects_liveness|(does_not|doesnt)_affect_liveness
+                 |attach_to_io_state
+                 |can_pass_as_mercury_type|stable
+                 |(may_call|will_not)(_call_mercury|_modify)
+                 |(may_)(not_)?_duplicate
+                 |(no_|unknown_)?sharing|tabled_for_io|local
+                 |(un)?trailed
+                 |(not_|maybe_)?thread_safe
+                 |will_not_throw_exception
+                 )\b
+    name: storage.type.source.mercury
 
   impl_defined_variable:
     {match: '[$][a-zA-Z0-9_]*\b', name: variable.language.source.mercury}
@@ -74,11 +88,20 @@ repository:
 
   declarations:
     patterns:
-    - match: (^[ \t]*:-) ((use|include|end|import|)_module|module|func|pred|type(class)?|inst(ance)?|mode|interface|implementation)\b
+    - match: (?x)(^[ \t]*:-)[ ]((use|include|end|import|)_module|module
+                               |func|pred|type(class)?|inst(ance)?
+                               |mode|interface|implementation
+                               )\b
       captures:
         '1': {name: keyword.operator.logic.source.mercury}
       name: keyword.control.declaration.source.mercury
-    - match: (^[ \t]*:-) (pragma) (inline|foreign_(proc|decl|code|export(_enum)?|enum)|type_spec)\b
+    - match: (?x)(^[ \t]*:-)[ ](pragma)[ ](check_termination|does_not_terminate|fact_table
+                                          |inline|loop_check|memo|minimal_model|no_inline
+                                          |obsolete|promise_equivalent_clauses|source_file
+                                          |terminates|type_spec
+                                          |foreign_(proc|type|decl|code|export(_enum)?
+                                                   |enum|import_module)
+                                          )\b
       captures:
         '1': {name: keyword.operator.logic.source.mercury}
         '2': {name: keyword.control.pragma.source.mercury}
@@ -128,3 +151,4 @@ patterns:
 # declarations come before common_ops, since declarations relies on :-
 - include: '#common_ops'
 - include: '#determ_decl'
+- include: '#foreign_mods'

@@ -92,6 +92,10 @@
 			<key>include</key>
 			<string>#determ_decl</string>
 		</dict>
+		<dict>
+			<key>include</key>
+			<string>#foreign_mods</string>
+		</dict>
 	</array>
 	<key>repository</key>
 	<dict>
@@ -175,7 +179,7 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>(^[ \t]*:-) ((use|include|end|import|)_module|module|func|pred|type(class)?|inst(ance)?|mode|interface|implementation)\b</string>
+					<string>(?x)(^[ \t]*:-)[ ]((use|include|end|import|)_module|module |func|pred|type(class)?|inst(ance)? |mode|interface|implementation )\b</string>
 					<key>name</key>
 					<string>keyword.control.declaration.source.mercury</string>
 				</dict>
@@ -194,7 +198,7 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>(^[ \t]*:-) (pragma) (inline|foreign_(proc|decl|code|export(_enum)?|enum)|type_spec)\b</string>
+					<string>(?x)(^[ \t]*:-)[ ](pragma)[ ](check_termination|does_not_terminate|fact_table |inline|loop_check|memo|minimal_model|no_inline |obsolete|promise_equivalent_clauses|source_file |terminates|type_spec |foreign_(proc|type|decl|code|export(_enum)? |enum|import_module) )\b</string>
 					<key>name</key>
 					<string>constant.language.pragma.source.mercury</string>
 				</dict>
@@ -203,9 +207,16 @@
 		<key>determ_decl</key>
 		<dict>
 			<key>match</key>
-			<string>\b(multi|cc_multi|det|semidet|nondet|errorneous)\b</string>
+			<string>\b(multi|cc_multi|det|semidet|nondet|errorneous|failure)\b</string>
 			<key>name</key>
 			<string>constant.language.determ.source.mercury</string>
+		</dict>
+		<key>foreign_mods</key>
+		<dict>
+			<key>match</key>
+			<string>(?x)\b(affects_liveness|(does_not|doesnt)_affect_liveness |attach_to_io_state |can_pass_as_mercury_type|stable |(may_call|will_not)(_call_mercury|_modify) |(may_)(not_)?_duplicate |(no_|unknown_)?sharing|tabled_for_io|local |(un)?trailed |(not_|maybe_)?thread_safe |will_not_throw_exception )\b</string>
+			<key>name</key>
+			<string>storage.type.source.mercury</string>
 		</dict>
 		<key>impl_defined_variable</key>
 		<dict>
@@ -274,7 +285,7 @@
 			<key>match</key>
 			<string>\b((promise_)(semi)?pure|(im|semi)?pure)\b</string>
 			<key>name</key>
-			<string>storage.type</string>
+			<string>storage.type.source.mercury</string>
 		</dict>
 		<key>singleton_variable</key>
 		<dict>
