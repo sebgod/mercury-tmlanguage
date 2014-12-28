@@ -74,7 +74,7 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#impl_defined_variable</string>
+			<string>#variables</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -87,6 +87,10 @@
 		<dict>
 			<key>include</key>
 			<string>#common_ops</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#determ_decl</string>
 		</dict>
 	</array>
 	<key>repository</key>
@@ -190,7 +194,7 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>(^[ \t]*:-) (pragma) (inline|foreign_(export(_enum)?|enum)|type_spec)\b</string>
+					<string>(^[ \t]*:-) (pragma) (inline|foreign_(proc|decl|code|export(_enum)?|enum)|type_spec)\b</string>
 					<key>name</key>
 					<string>constant.language.pragma.source.mercury</string>
 				</dict>
@@ -268,9 +272,16 @@
 		<key>purity_level</key>
 		<dict>
 			<key>match</key>
-			<string>(im|semi)pure</string>
+			<string>\b((promise_)(semi)?pure|(im|semi)?pure)\b</string>
 			<key>name</key>
 			<string>storage.type</string>
+		</dict>
+		<key>singleton_variable</key>
+		<dict>
+			<key>match</key>
+			<string>\b_[A-Z]?[a-zA-Z0-9_]*\b</string>
+			<key>name</key>
+			<string>support.variable</string>
 		</dict>
 		<key>string_quoted_double</key>
 		<dict>
@@ -309,6 +320,31 @@
 					<string>""</string>
 					<key>name</key>
 					<string>constant.character.escape.quote.source.mercury</string>
+				</dict>
+			</array>
+		</dict>
+		<key>variable</key>
+		<dict>
+			<key>match</key>
+			<string>\b[A-Z][a-zA-Z0-9_]*\b</string>
+			<key>name</key>
+			<string>variable.other</string>
+		</dict>
+		<key>variables</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#impl_defined_variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#singleton_variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#variable</string>
 				</dict>
 			</array>
 		</dict>

@@ -1,6 +1,7 @@
 # [PackageDev] target_format: plist, ext: tmLanguage
 # c.f.: http://manual.macromates.com/en/language_grammars
 # c.f.: http://www.apeth.com/nonblog/stories/textmatebundle.html
+# developed with: https://github.com/SublimeText/AAAPackageDev
 ---
 fileTypes: [m,moo]
 name: Mercury
@@ -51,11 +52,25 @@ repository:
      name: constant.language.logic.source.mercury}
   
   purity_level:
-    match: (im|semi)pure
+    match: \b((promise_)(semi)?pure|(im|semi)?pure)\b
     name: storage.type
 
   impl_defined_variable:
     {match: '[$][a-zA-Z0-9_]*\b', name: variable.language.source.mercury}
+
+  singleton_variable:
+    match: \b_[A-Z]?[a-zA-Z0-9_]*\b
+    name: support.variable
+
+  variable:
+    match: \b[A-Z][a-zA-Z0-9_]*\b
+    name: variable.other
+
+  variables:
+    patterns:
+    - include: '#impl_defined_variable'
+    - include: '#singleton_variable'
+    - include: '#variable'
 
   declarations:
     patterns:
@@ -63,7 +78,7 @@ repository:
       captures:
         '1': {name: keyword.operator.logic.source.mercury}
       name: keyword.control.declaration.source.mercury
-    - match: (^[ \t]*:-) (pragma) (inline|foreign_(export(_enum)?|enum)|type_spec)\b
+    - match: (^[ \t]*:-) (pragma) (inline|foreign_(proc|decl|code|export(_enum)?|enum)|type_spec)\b
       captures:
         '1': {name: keyword.operator.logic.source.mercury}
         '2': {name: keyword.control.pragma.source.mercury}
@@ -107,8 +122,9 @@ patterns:
 - include: '#line_comment'
 - include: '#decl_keywords'
 - include: '#purity_level'
-- include: '#impl_defined_variable'
+- include: '#variables'
 - include: '#number'
 - include: '#declarations'
 # declarations come before common_ops, since declarations relies on :-
 - include: '#common_ops'
+- include: '#determ_decl'
