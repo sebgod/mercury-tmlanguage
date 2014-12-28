@@ -33,12 +33,28 @@ repository:
     begin: '"'
     beginCaptures:
       '0': {name: punctuation.literal.string.begin.source.mercury}
-    end: '"'
+    end: '"(?!")'
     endCaptures:
       '0': {name: punctuation.literal.string.end.source.mercury}
     patterns:
-    - {match: \\., name: constant.character.escape.source.mercury}
-    - {match: '""', name: constant.character.escape.quote.source.mercury}
+    - match: \\.
+      name: constant.character.escape.source.mercury
+    - match: '""'
+      name: constant.character.escape.quote.source.mercury
+
+  atom:
+    name: string.quoted.single.source.mercury
+    begin: ''''
+    beginCaptures:
+      '0': {name: punctuation.definition.string.begin.source.mercury}
+    end: '''(?![''])'
+    endCaptures:
+      '0': {name: punctuation.definition.string.end.source.mercury}
+    patterns:
+    - match: \\.
+      name: constant.character.escape.source.mercury
+    - match: \'\'
+      name: constant.character.escape.quote.source.mercury
 
   decl_keywords:
     match: \b(is|where)\b
@@ -70,7 +86,8 @@ repository:
     name: storage.type.source.mercury
 
   impl_defined_variable:
-    {match: '[$][a-zA-Z0-9_]*\b', name: variable.language.source.mercury}
+    match: '[$][a-zA-Z0-9_]*\b'
+    name: variable.language.source.mercury
 
   singleton_variable:
     match: \b_[A-Z]?[a-zA-Z0-9_]*\b
@@ -123,32 +140,20 @@ repository:
       name: keyword.operator.terminator.source.mercury
 
   number:
-    match: \b(0[0-7]*|0'.|[1-9][0-9]*|\.[0-9]+([eE][0-9]+)?|0[xX][0-9a-fA-F]+|0[bB][01]+)\b
+    match: \b(0(?!['])[0-7]*|0['].|[1-9][0-9]*|\.[0-9]+([eE][0-9]+)?|0[xX][0-9a-fA-F]+|0[bB][01]+)\b
     name: constant.numeric.source.mercury
   
 patterns:
-- name: string.quoted.double.source.mercury
-  include: '#string_quoted_double'
-
-- name: string.quoted.single.source.mercury
-  begin: ''''
-  beginCaptures:
-    '0': {name: punctuation.definition.string.begin.source.mercury}
-  end: ''''
-  endCaptures:
-    '0': {name: punctuation.definition.string.end.source.mercury}
-  patterns:
-  - {match: \\., name: constant.character.escape.source.mercury}
-  - {match: '''''', name: constant.character.escape.quote.source.mercury}
-
+- include: '#number'  # number must come before single quoted chars, to allow 0'a
+- include: '#string_quoted_double'
+- include: '#atom'
 - include: '#block_comment'
 - include: '#line_comment'
 - include: '#decl_keywords'
 - include: '#purity_level'
-- include: '#variables'
-- include: '#number'
 - include: '#declarations'
 # declarations come before common_ops, since declarations relies on :-
 - include: '#common_ops'
 - include: '#determ_decl'
 - include: '#foreign_mods'
+- include: '#variables'

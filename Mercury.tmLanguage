@@ -13,10 +13,56 @@
 	<array>
 		<dict>
 			<key>include</key>
-			<string>#string_quoted_double</string>
-			<key>name</key>
-			<string>string.quoted.double.source.mercury</string>
+			<string>#number</string>
 		</dict>
+		<dict>
+			<key>include</key>
+			<string>#string_quoted_double</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#atom</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#block_comment</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#line_comment</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#decl_keywords</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#purity_level</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#declarations</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#common_ops</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#determ_decl</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#foreign_mods</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#variables</string>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>atom</key>
 		<dict>
 			<key>begin</key>
 			<string>'</string>
@@ -29,7 +75,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>'</string>
+			<string>'(?!['])</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
@@ -50,55 +96,12 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>''</string>
+					<string>\'\'</string>
 					<key>name</key>
 					<string>constant.character.escape.quote.source.mercury</string>
 				</dict>
 			</array>
 		</dict>
-		<dict>
-			<key>include</key>
-			<string>#block_comment</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#line_comment</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#decl_keywords</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#purity_level</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#variables</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#number</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#declarations</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#common_ops</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#determ_decl</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#foreign_mods</string>
-		</dict>
-	</array>
-	<key>repository</key>
-	<dict>
 		<key>block_comment</key>
 		<dict>
 			<key>begin</key>
@@ -276,7 +279,7 @@
 		<key>number</key>
 		<dict>
 			<key>match</key>
-			<string>\b(0[0-7]*|0'.|[1-9][0-9]*|\.[0-9]+([eE][0-9]+)?|0[xX][0-9a-fA-F]+|0[bB][01]+)\b</string>
+			<string>\b(0(?!['])[0-7]*|0['].|[1-9][0-9]*|\.[0-9]+([eE][0-9]+)?|0[xX][0-9a-fA-F]+|0[bB][01]+)\b</string>
 			<key>name</key>
 			<string>constant.numeric.source.mercury</string>
 		</dict>
@@ -307,7 +310,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>"</string>
+			<string>"(?!")</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
