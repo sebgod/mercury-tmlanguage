@@ -41,6 +41,8 @@ repository:
       name: constant.character.escape.source.mercury
     - match: '""'
       name: constant.character.escape.quote.source.mercury
+    - match: '%[I]?[-+# *\.0-9]*[dioxXucsfeEgGp]'
+      name: constant.character.escape.format.source.mercury
 
   atom:
     name: string.quoted.single.source.mercury
@@ -55,6 +57,10 @@ repository:
       name: constant.character.escape.source.mercury
     - match: \'\'
       name: constant.character.escape.quote.source.mercury
+
+  inline_bin_op:
+    match: '`[^`]+`'
+    name: keyword.operator.other.source.mercury
 
   decl_keywords:
     match: \b(is|where)\b
@@ -132,7 +138,7 @@ repository:
       name: keyword.operator.comparison.source.mercury
     - match: (<=>|<=|=>|\\=|==|:-|=(?![=<>])|,|;|->|/\\(?![=])|\\/|@)
       name: keyword.operator.logic.source.mercury
-    - match: (-->|--->|[+][+](?![+])|::|:=|![\.:]?|\||`|\^)
+    - match: (-->|--->|[+][+](?![+])|::|:=|![\.:]?|\||\^)
       name: keyword.operator.other.source.mercury
     - match: (\(|\)|\[|\])
       name: keyword.operator.list.source.mercury
@@ -146,6 +152,7 @@ repository:
 patterns:
 - include: '#number'  # number must come before single quoted chars, to allow 0'a
 - include: '#string_quoted_double'
+- include: '#inline_bin_op'
 - include: '#atom'
 - include: '#block_comment'
 - include: '#line_comment'

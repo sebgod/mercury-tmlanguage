@@ -21,6 +21,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#inline_bin_op</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#atom</string>
 		</dict>
 		<dict>
@@ -143,7 +147,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(--&gt;|---&gt;|[+][+](?![+])|::|:=|![\.:]?|\||`|\^)</string>
+					<string>(--&gt;|---&gt;|[+][+](?![+])|::|:=|![\.:]?|\||\^)</string>
 					<key>name</key>
 					<string>keyword.operator.other.source.mercury</string>
 				</dict>
@@ -227,6 +231,13 @@
 			<string>[$][a-zA-Z0-9_]*\b</string>
 			<key>name</key>
 			<string>variable.language.source.mercury</string>
+		</dict>
+		<key>inline_bin_op</key>
+		<dict>
+			<key>match</key>
+			<string>`[^`]+`</string>
+			<key>name</key>
+			<string>keyword.operator.other.source.mercury</string>
 		</dict>
 		<key>line_comment</key>
 		<dict>
@@ -334,6 +345,12 @@
 					<string>""</string>
 					<key>name</key>
 					<string>constant.character.escape.quote.source.mercury</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>%[I]?[-+# *\.0-9]*[dioxXucsfeEgGp]</string>
+					<key>name</key>
+					<string>constant.character.escape.format.source.mercury</string>
 				</dict>
 			</array>
 		</dict>
