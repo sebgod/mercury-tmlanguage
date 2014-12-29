@@ -66,12 +66,17 @@ repository:
     match: \b(is|where)\b
     name: keyword.control.declaration.source.mercury
 
-  determ_decl:
-    match: \b(multi|cc_multi|det|semidet|nondet|errorneous|failure)\b
+  determ_keywords:
+    match: (?x)\b(require_(_switch_arms)?)?(multi|cc_(multi|nondet)
+                                           |det|semidet|nondet
+                                           |errorneous|failure
+                                           )\b
     name: constant.language.determ.source.mercury
     
-  logic_consts:
-    match: \b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail)\b
+  logic_keywords:
+    match: (?x)\b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail
+                 |some|all|require_complete_switch
+                 )\b
     name: constant.language.logic.source.mercury
   
   purity_level:
@@ -161,6 +166,7 @@ patterns:
 - include: '#declarations'
 # declarations come before common_ops, since declarations relies on :-
 - include: '#common_ops'
-- include: '#determ_decl'
+- include: '#determ_keywords'
+- include: '#logic_keywords'
 - include: '#foreign_mods'
 - include: '#variables'
