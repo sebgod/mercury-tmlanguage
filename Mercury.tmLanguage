@@ -268,7 +268,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>constant.language.warn.source.mercury</string>
+							<string>keyword.control.note.source.mercury</string>
 						</dict>
 					</dict>
 					<key>match</key>

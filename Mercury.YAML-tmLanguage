@@ -25,7 +25,7 @@ repository:
     patterns:
     - match: '[ \t]+(XXX|TODO|FIXME|WARNING|NOTE|Note:)\b'
       captures:
-        '1': {name: constant.language.warn.source.mercury}
+        '1': {name: keyword.control.note.source.mercury}
     - match: '.*'
 
   string_quoted_double:
