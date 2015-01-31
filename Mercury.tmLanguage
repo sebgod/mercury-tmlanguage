@@ -272,11 +272,16 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>keyword.control.note.source.mercury</string>
+							<string>constant.language.warn.source.mercury</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>comment.comment.source.mercury</string>
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>[ \t]+(XXX|TODO|FIXME|WARNING|NOTE|Note:)\b</string>
+					<string>[ \t]+(XXX|TODO|FIXME|WARNING|NOTE|Note:)\b(.*)</string>
 				</dict>
 				<dict>
 					<key>match</key>
