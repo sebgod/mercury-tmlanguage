@@ -53,7 +53,11 @@
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#determ_decl</string>
+			<string>#determ_keywords</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#logic_keywords</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -211,10 +215,10 @@
 				</dict>
 			</array>
 		</dict>
-		<key>determ_decl</key>
+		<key>determ_keywords</key>
 		<dict>
 			<key>match</key>
-			<string>\b(multi|cc_multi|det|semidet|nondet|errorneous|failure)\b</string>
+			<string>(?x)\b(require_(_switch_arms)?)?(multi|cc_(multi|nondet) |det|semidet|nondet |errorneous|failure )\b</string>
 			<key>name</key>
 			<string>constant.language.determ.source.mercury</string>
 		</dict>
@@ -280,10 +284,10 @@
 				</dict>
 			</array>
 		</dict>
-		<key>logic_consts</key>
+		<key>logic_keywords</key>
 		<dict>
 			<key>match</key>
-			<string>\b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail)\b</string>
+			<string>(?x)\b(yes|no|true|false|(semidet_)?succeed|(semidet_)?fail |some|all|require_complete_switch )\b</string>
 			<key>name</key>
 			<string>constant.language.logic.source.mercury</string>
 		</dict>
