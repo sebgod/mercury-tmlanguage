@@ -146,7 +146,7 @@ repository:
       name: keyword.operator.logic.source.mercury
     - match: (-->|--->|[+][+](?![+])|::|:=|![\.:]?|\||\^)
       name: keyword.operator.other.source.mercury
-    - match: (\(|\)|\[|\])
+    - match: (\(|\)|\[|\]|\{|\})
       name: keyword.operator.list.source.mercury
     - match: \.(?=[ \t]*($|%))
       name: keyword.operator.terminator.source.mercury
