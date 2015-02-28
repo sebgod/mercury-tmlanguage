@@ -281,7 +281,7 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>(([ \t]+(XXX|TODO|FIXME|WARNING|NOTE(_TO_IMPLEMENTORS)?)\b)*)(.*)</string>
+					<string>(([ \t]+(XXX|TODO|FIXME|WARNING|IMPORTANT|NOTE(_TO_IMPLEMENTORS)?)\b)*)(.*)</string>
 				</dict>
 			</array>
 		</dict>
@@ -343,7 +343,7 @@
 					<key>match</key>
 					<string>\\.</string>
 					<key>name</key>
-					<string>constant.character.escape.source.mercury</string>
+					<string>constant.character.escapesource.mercury</string>
 				</dict>
 				<dict>
 					<key>match</key>
